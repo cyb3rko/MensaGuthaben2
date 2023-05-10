@@ -22,18 +22,16 @@
 
 package de.yazo_games.mensaguthaben;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.res.Configuration;
-import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.LinearLayout;
+
+import androidx.appcompat.widget.Toolbar;
 
 import java.util.List;
 
@@ -66,19 +64,12 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
 		Toolbar bar = (Toolbar) LayoutInflater.from(this).inflate(R.layout.preferences_toolbar, root, false);
 		root.addView(bar, 0); // insert at top
 		bar.setTitle(R.string.title_activity_settings);
-		bar.setNavigationOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				finish();
-			}
-		});
-
+		bar.setNavigationOnClickListener(v -> finish());
     }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
-
         setupSimplePreferencesScreen();
     }
 
@@ -88,7 +79,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
      * shown.
      */
     private void setupSimplePreferencesScreen() {
-        if (!isSimplePreferences(this)) {
+        if (isNotSimplePreferences(this)) {
             return;
         }
 
@@ -102,7 +93,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
     /** {@inheritDoc} */
     @Override
     public boolean onIsMultiPane() {
-        return isXLargeTablet(this) && !isSimplePreferences(this);
+        return isXLargeTablet(this) && isNotSimplePreferences(this);
     }
 
     /**
@@ -121,17 +112,14 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
      * doesn't have an extra-large screen. In these cases, a single-pane
      * "simplified" settings UI should be shown.
      */
-    private static boolean isSimplePreferences(Context context) {
-        return ALWAYS_SIMPLE_PREFS
-                || Build.VERSION.SDK_INT < Build.VERSION_CODES.HONEYCOMB
-                || !isXLargeTablet(context);
+    private static boolean isNotSimplePreferences(Context context) {
+        return !ALWAYS_SIMPLE_PREFS && isXLargeTablet(context);
     }
 
     /** {@inheritDoc} */
     @Override
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public void onBuildHeaders(List<Header> target) {
-        if (!isSimplePreferences(this)) {
+        if (isNotSimplePreferences(this)) {
             loadHeadersFromResource(R.xml.pref_headers, target);
         }
     }
@@ -141,7 +129,7 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
      */
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if(key.equals("autostart")) {
-            Boolean value = sharedPreferences.getBoolean(key, true);
+            boolean value = sharedPreferences.getBoolean(key, true);
             AutostartRegister.register(getPackageManager(),value);
         }
     }
@@ -164,15 +152,11 @@ public class SettingsActivity extends PreferenceActivity implements SharedPrefer
      * This fragment shows general preferences only. It is used when the
      * activity is showing a two-pane settings UI.
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class GeneralPreferenceFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             addPreferencesFromResource(R.xml.pref_general);
-
         }
     }
-
-
 }

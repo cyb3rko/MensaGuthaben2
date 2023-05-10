@@ -1,8 +1,7 @@
 <resources>
 
     <!-- Application theme. -->
-    <style name="AppBaseTheme" parent="Theme.AppCompat.Light.DarkActionBar">
-		<item name="windowActionBar">false</item>
+    <style name="AppBaseTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
 		<!-- Main theme colors -->
 		<!--   your app branding color for the app bar -->
 		<item name="colorPrimary">@color/material_deep_teal_500</item>
@@ -14,8 +13,7 @@
     </style>
 
 	<!-- Application theme. -->
-	<style name="AppBaseTheme.Dialog" parent="Theme.AppCompat.Light.Dialog">
-		<item name="windowActionBar">false</item>
+	<style name="AppBaseTheme.Dialog" parent="Theme.MaterialComponents.Light.Dialog">
 		<!-- Main theme colors -->
 		<!--   your app branding color for the app bar -->
 		<item name="colorPrimary">@color/material_deep_teal_500</item>

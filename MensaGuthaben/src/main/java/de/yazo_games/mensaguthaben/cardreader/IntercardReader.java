@@ -25,14 +25,13 @@ package de.yazo_games.mensaguthaben.cardreader;
 import android.util.Log;
 
 import com.codebutler.farebot.Utils;
-import com.codebutler.farebot.card.desfire.DesfireException;
 import com.codebutler.farebot.card.desfire.DesfireFileSettings;
 import com.codebutler.farebot.card.desfire.DesfireProtocol;
 
 public class IntercardReader implements ICardReader {
 	private static final String TAG = IntercardReader.class.getName();
 	@Override
-	public ValueData readCard(DesfireProtocol card) throws DesfireException {
+	public ValueData readCard(DesfireProtocol card) {
 
 		final int appId = 0x5F8415;
 		final int fileId = 1;
@@ -44,7 +43,7 @@ public class IntercardReader implements ICardReader {
 			DesfireFileSettings.ValueDesfireFileSettings value = (DesfireFileSettings.ValueDesfireFileSettings) settings;
 
 			Log.i(TAG, "Reading value");
-			int data = 0;
+			int data;
 			try {
 				data = card.readValue(fileId);
 				return new ValueData(data,value.value);

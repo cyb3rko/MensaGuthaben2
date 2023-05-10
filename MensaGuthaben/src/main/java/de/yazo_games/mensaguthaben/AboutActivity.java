@@ -25,27 +25,27 @@ package de.yazo_games.mensaguthaben;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBarActivity;
 import android.text.method.LinkMovementMethod;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.Window;
 import android.widget.TextView;
 
-public class AboutActivity extends ActionBarActivity {
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NavUtils;
+
+public class AboutActivity extends AppCompatActivity {
 
     private void makeLinkClickable(int id) {
-
-        TextView tv = (TextView) findViewById(id);
+        TextView tv = findViewById(id);
         tv.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
 	private void showVersion() {
-		PackageInfo pInfo = null;
+		PackageInfo pInfo;
 		try {
 			pInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
-			TextView tv = (TextView) findViewById(R.id.tvVersion);
+			TextView tv = findViewById(R.id.tvVersion);
 			tv.setText(getString(R.string.version)+" "+pInfo.versionName+" ("+pInfo.versionCode+")");
 		} catch (PackageManager.NameNotFoundException e) {
 			e.printStackTrace();
@@ -57,13 +57,10 @@ public class AboutActivity extends ActionBarActivity {
 		super.onCreate(savedInstanceState);
 
 		supportRequestWindowFeature(Window.FEATURE_ACTION_BAR);
-
 		setContentView(R.layout.activity_about);
 		// Show the Up button in the action bar.
 		setupActionBar();
-
 		showVersion();
-
 
         makeLinkClickable(R.id.tvCopyright);
         makeLinkClickable(R.id.tvFarebot);
@@ -75,9 +72,7 @@ public class AboutActivity extends ActionBarActivity {
 	 * Set up the {@link android.app.ActionBar}.
 	 */
 	private void setupActionBar() {
-
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 	}
 
 	@Override
@@ -89,9 +84,7 @@ public class AboutActivity extends ActionBarActivity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case android.R.id.home:
-			// This ID represents the Home or Up button. In the case of this
+		if (item.getItemId() == android.R.id.home) {// This ID represents the Home or Up button. In the case of this
 			// activity, the Up button is shown. Use NavUtils to allow users
 			// to navigate up one level in the application structure. For
 			// more details, see the Navigation pattern on Android Design:
@@ -103,5 +96,4 @@ public class AboutActivity extends ActionBarActivity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
 }

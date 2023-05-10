@@ -22,17 +22,17 @@
 
 package com.codebutler.farebot.card.desfire;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.codebutler.farebot.card.desfire.DesfireFileSettings.RecordDesfireFileSettings;
 
+import java.util.Arrays;
+
 public class DesfireFile implements Parcelable {
-    private int                 mId;
-    private DesfireFileSettings mSettings;
-    private byte[]              mData;
+    private final int mId;
+    private final DesfireFileSettings mSettings;
+    private final byte[] mData;
 
     public static DesfireFile create (int fileId, DesfireFileSettings fileSettings, byte[] fileData) {
         if (fileSettings instanceof RecordDesfireFileSettings)
@@ -45,10 +45,6 @@ public class DesfireFile implements Parcelable {
         mId       = fileId;
         mSettings = fileSettings;
         mData     = fileData;
-    }
-
-    public DesfireFileSettings getFileSettings () {
-        return mSettings;
     }
 
     public int getId () {
@@ -66,7 +62,7 @@ public class DesfireFile implements Parcelable {
             boolean isError = (source.readInt() == 1);
 
             if (!isError) {
-                DesfireFileSettings fileSettings = (DesfireFileSettings) source.readParcelable(DesfireFileSettings.class.getClassLoader());
+                DesfireFileSettings fileSettings = source.readParcelable(DesfireFileSettings.class.getClassLoader());
                 int    dataLength = source.readInt();
                 byte[] fileData   = new byte[dataLength];
                 source.readByteArray(fileData);
@@ -100,7 +96,6 @@ public class DesfireFile implements Parcelable {
     }
 
     public static class RecordDesfireFile extends DesfireFile {
-        private DesfireRecord[] mRecords;
 
         private RecordDesfireFile (int fileId, DesfireFileSettings fileSettings, byte[] fileData) {
             super(fileId, fileSettings, fileData);
@@ -110,18 +105,13 @@ public class DesfireFile implements Parcelable {
             DesfireRecord[] records = new DesfireRecord[settings.curRecords];
             for (int i = 0; i < settings.curRecords; i++) {
                 int offset = settings.recordSize * i;
-                records[i] = new DesfireRecord(ArrayUtils.subarray(getData(), offset, offset + settings.recordSize));
+                records[i] = new DesfireRecord(Arrays.copyOfRange(getData(), offset, offset + settings.recordSize));
             }
-            mRecords = records;
-        }
-
-        public DesfireRecord[] getRecords () {
-            return mRecords;
         }
     }
 
     public static class InvalidDesfireFile extends DesfireFile {
-        private String mErrorMessage;
+        private final String mErrorMessage;
 
         public InvalidDesfireFile (int fileId, String errorMessage) {
             super(fileId, null, new byte[0]);

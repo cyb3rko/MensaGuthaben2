@@ -1,16 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="de.yazo_games.mensaguthaben"
-    android:installLocation="auto"
-    android:versionCode="15"
-    android:versionName="1.2.1" >
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.NFC" />
 
     <uses-feature
         android:name="android.hardware.nfc"
         android:required="true" />
-
 
 	<application
         android:allowBackup="true"
@@ -20,8 +15,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name="de.yazo_games.mensaguthaben.MainActivity"
-            android:label="@string/app_name"
-			android:launchMode="singleTop">
+			android:launchMode="singleTop"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,9 +26,7 @@
         </activity>
 		<activity
 			android:name="de.yazo_games.mensaguthaben.PopupActivity"
-			android:label="@string/app_name"
-			android:theme="@style/AppTheme.Dialog"
-			>
+			android:theme="@style/AppTheme.Dialog">
 		</activity>
 
         <activity
@@ -56,7 +49,8 @@
         <activity-alias
             android:name=".ActivityAlias"
             android:targetActivity=".PopupActivity"
-            android:enabled="true">
+            android:enabled="true"
+            android:exported="true">
 
             <intent-filter>
                 <action android:name="android.nfc.action.TECH_DISCOVERED" />

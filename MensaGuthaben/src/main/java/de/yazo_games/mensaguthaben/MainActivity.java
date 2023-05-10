@@ -33,23 +33,20 @@ import android.nfc.tech.IsoDep;
 import android.nfc.tech.NfcA;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.view.ViewCompat;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.FragmentManager;
 import com.codebutler.farebot.NfcOffFragment;
 import com.codebutler.farebot.card.desfire.DesfireException;
-
 import de.yazo_games.mensaguthaben.cardreader.Readers;
 import de.yazo_games.mensaguthaben.cardreader.ValueData;
 
-
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends AppCompatActivity {
 	private static final String VALUE_TAG = "Value Fragment";
 	public static final String EXTRA_VALUE = "valueData";
 	public static final String ACTION_FULLSCREEN = "de.yazo_games.mensaguthaben.Fullscreen";
@@ -84,15 +81,12 @@ public class MainActivity extends ActionBarActivity {
 			f.show(getSupportFragmentManager(), NfcOffFragment.TAG);
 		}
 	}
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.activity_main);
-
 		Log.i(TAG,"activity started");
-
 
 		FragmentManager fm = getSupportFragmentManager();
 
@@ -106,34 +100,37 @@ public class MainActivity extends ActionBarActivity {
 		if (getIntent().getAction().equals(ACTION_FULLSCREEN)) {
 			ValueData valueData = (ValueData) getIntent().getSerializableExtra(EXTRA_VALUE);
 			valueFragment.setValueData(valueData);
-
 			setResult(0);
-			
-
 		}
 
-		Boolean autostart = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("autostart",true);
-        AutostartRegister.register(getPackageManager(),autostart);
+		boolean autostart = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("autostart",true);
+        AutostartRegister.register(getPackageManager(), autostart);
 
-		Toolbar t = (Toolbar) findViewById(R.id.toolbar);
+		Toolbar t = findViewById(R.id.toolbar);
 		setSupportActionBar(t);
 		ViewCompat.setTransitionName(t,"toolbar");
 
 		mAdapter = NfcAdapter.getDefaultAdapter(this);
         mIntentFilter = new IntentFilter("android.nfc.action.ADAPTER_STATE_CHANGED");
 
-
 		// Create a generic PendingIntent that will be deliver to this activity.
-		// The NFC stack
-		// will fill in the intent with the details of the discovered tag before
-		// delivering to
-		// this activity.
-		mPendingIntent = PendingIntent.getActivity(this, 0, new Intent(this,
-				getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
-
+		// The NFC stack will fill in the intent with the details of the discovered tag before
+		// delivering to this activity.
+		mPendingIntent = PendingIntent.getActivity(
+				this,
+				0,
+				new Intent(
+						this,
+						getClass()
+				).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), PendingIntent.FLAG_MUTABLE);
 
 		// Setup an intent filter
 		IntentFilter tech = new IntentFilter(NfcAdapter.ACTION_TECH_DISCOVERED);
+		try {
+			tech.addDataType("text/plain");
+		} catch (IntentFilter.MalformedMimeTypeException e) {
+			Log.e("App","Wrong mime");
+		}
 		mFilters = new IntentFilter[] { tech, };
 		mTechLists = new String[][] { new String[] { IsoDep.class.getName(),
 				NfcA.class.getName() } };
@@ -142,7 +139,6 @@ public class MainActivity extends ActionBarActivity {
 			ValueData valueData = (ValueData) getIntent().getSerializableExtra(EXTRA_VALUE);
 			Log.w(TAG,"restoring data for fullscreen");
 			valueFragment.setValueData(valueData);
-
 		}
 	}
 
@@ -150,25 +146,23 @@ public class MainActivity extends ActionBarActivity {
 
 	@Override
 	public void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
 		Log.i(TAG, "Foreground dispatch");
 		if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(intent.getAction())) {
-			Log.i(TAG,"Discovered tag with intent: " + intent);
+			Log.i(TAG, "Discovered tag with intent: " + intent);
 			Tag tag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
-
 
 			try {
 				ValueData val = Readers.getInstance().readTag(tag);
-				Log.w(TAG,"Setting read data");
+				Log.w(TAG, "Setting read data");
 				valueFragment.setValueData(val);
 				hasNewData = true;
-
 			} catch (DesfireException e) {
-				Toast.makeText(this,R.string.communication_fail,Toast.LENGTH_SHORT).show();
+				Toast.makeText(this, R.string.communication_fail, Toast.LENGTH_SHORT).show();
 			}
 		} else if (getIntent().getAction().equals(ACTION_FULLSCREEN)) {
 			ValueData valueData = (ValueData) getIntent().getSerializableExtra(EXTRA_VALUE);
 			valueFragment.setValueData(valueData);
-
 		}
 	}
 
@@ -181,21 +175,11 @@ public class MainActivity extends ActionBarActivity {
 
 	@Override
 	public void onResume() {
-
 		super.onResume();
 		mResumed = true;
         getApplicationContext().registerReceiver(mReceiver, mIntentFilter);
-
 		updateNfcState();
-		
-		mAdapter.enableForegroundDispatch(this, mPendingIntent, mFilters,
-				mTechLists);
-
-
-		/*if (NfcAdapter.ACTION_TECH_DISCOVERED.equals(getIntent().getAction())) {
-			Log.i(TAG,"Started by tag discovery");
-			onNewIntent(getIntent());
-		} else */
+		mAdapter.enableForegroundDispatch(this, mPendingIntent, mFilters, mTechLists);
 	}
 
 	@Override
@@ -208,7 +192,7 @@ public class MainActivity extends ActionBarActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId()==R.id.action_about) {
             Intent myIntent = new Intent(this, AboutActivity.class);
-            startActivity(myIntent);
+			startActivity(myIntent);
 			return true;
 		}
 

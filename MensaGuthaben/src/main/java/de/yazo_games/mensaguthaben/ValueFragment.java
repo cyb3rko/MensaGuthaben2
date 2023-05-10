@@ -1,16 +1,14 @@
 package de.yazo_games.mensaguthaben;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.view.ViewCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
 import java.util.Locale;
 import java.util.Currency;
-
 import de.yazo_games.mensaguthaben.cardreader.ValueData;
 
 public class ValueFragment extends Fragment {
@@ -22,17 +20,19 @@ public class ValueFragment extends Fragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		setRetainInstance(true);
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-							 Bundle savedInstanceState) {
+	public View onCreateView(
+			LayoutInflater inflater,
+			ViewGroup container,
+			Bundle savedInstanceState
+	) {
 		View v = inflater.inflate(R.layout.fragment_value, container, false);
 
-		tvCurrentValue = ((TextView) v.findViewById(R.id.current));
-		tvLastValue = (TextView) v.findViewById(R.id.last);
+		tvCurrentValue = v.findViewById(R.id.current);
+		tvLastValue = v.findViewById(R.id.last);
 
 		ViewCompat.setTransitionName(tvCurrentValue, "current");
 		ViewCompat.setTransitionName(tvLastValue, "last");
@@ -40,9 +40,7 @@ public class ValueFragment extends Fragment {
 		if (savedInstanceState!=null) {
 			valueData = (ValueData) savedInstanceState.getSerializable(VALUE);
 		}
-
 		updateView();
-
 		return v;
 	}
 
@@ -51,17 +49,14 @@ public class ValueFragment extends Fragment {
 		String currencySymbol = Currency.getInstance(germany).getSymbol();
 
 		float amount = ((float) i) / 1000;
-
 		return String.format(germany, "%.2f%s", amount, currencySymbol);
 	}
-
 
 	private void updateView() {
 		if (valueData==null) {
 			tvCurrentValue.setText(getString(R.string.place_on_card));
 			tvLastValue.setVisibility(View.GONE);
 		} else {
-
 			String current = moneyStr(valueData.value);
 			tvCurrentValue.setText(current);
 			if (valueData.lastTransaction != null) {
@@ -86,7 +81,8 @@ public class ValueFragment extends Fragment {
 	public void setValueData(ValueData valueData) {
 		this.valueData = valueData;
 
-		if (tvCurrentValue !=null)
+		if (tvCurrentValue != null) {
 			updateView();
+		}
 	}
 }

@@ -23,9 +23,6 @@
 package com.codebutler.farebot.card.desfire;
 
 import java.io.ByteArrayInputStream;
-
-import org.apache.commons.lang3.ArrayUtils;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -44,8 +41,7 @@ public abstract class DesfireFileSettings implements Parcelable {
     static final byte CYCLIC_RECORD_FILE = (byte) 0x04;
     
     public static DesfireFileSettings Create (byte[] data) throws DesfireException {
-        byte fileType = (byte) data[0];
-
+        byte fileType = data[0];
         ByteArrayInputStream stream = new ByteArrayInputStream(data);
 
         if (fileType == STANDARD_DATA_FILE || fileType == BACKUP_DATA_FILE)
@@ -70,23 +66,6 @@ public abstract class DesfireFileSettings implements Parcelable {
         this.fileType     = fileType;
         this.commSetting  = commSetting;
         this.accessRights = accessRights;
-    }
-
-    public String getFileTypeName () {
-        switch (fileType) {
-            case STANDARD_DATA_FILE:
-                return "Standard";
-            case BACKUP_DATA_FILE:
-                return "Backup";
-            case VALUE_FILE:
-                return "Value";
-            case LINEAR_RECORD_FILE:
-                return "Linear Record";
-            case CYCLIC_RECORD_FILE:
-                return "Cyclic Record";
-            default:
-                return "Unknown";
-        }
     }
 
     public static final Parcelable.Creator<DesfireFileSettings> CREATOR = new Parcelable.Creator<DesfireFileSettings>() {
@@ -188,9 +167,6 @@ public abstract class DesfireFileSettings implements Parcelable {
         }
     }
 
-
-
-
     public static class ValueDesfireFileSettings extends DesfireFileSettings {
         public final int lowerLimit;
         public final int upperLimit;
@@ -233,6 +209,7 @@ public abstract class DesfireFileSettings implements Parcelable {
             parcel.writeByte(limitedCreditEnabled);
         }
     }
+
     public static class UnsupportedDesfireFileSettings extends DesfireFileSettings {
         public UnsupportedDesfireFileSettings(byte fileType) {
             super(fileType, Byte.MIN_VALUE, new byte[0]);

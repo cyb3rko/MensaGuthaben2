@@ -36,7 +36,7 @@ import de.yazo_games.mensaguthaben.ValueHolder;
 public class Readers implements ICardReader {
 	private static final String TAG = Readers.class.getName();
 	private static Readers instance;
-	private ICardReader[] readers = new ICardReader[]{
+	private final ICardReader[] readers = new ICardReader[]{
 			new MagnaCartaReader(),
 			new IntercardReader()};
 

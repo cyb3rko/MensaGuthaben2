@@ -28,18 +28,11 @@ import com.codebutler.farebot.Utils;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 
-import org.apache.commons.lang3.ArrayUtils;
-
 public class DesfireProtocol {
-    /* Commands */
-    static final byte GET_MANUFACTURING_DATA    = (byte) 0x60;
-    static final byte GET_APPLICATION_DIRECTORY = (byte) 0x6A;
     static final byte GET_ADDITIONAL_FRAME      = (byte) 0xAF;
     static final byte SELECT_APPLICATION        = (byte) 0x5A;
     static final byte READ_DATA                 = (byte) 0xBD;
-    static final byte READ_RECORD               = (byte) 0xBB;
     static final byte READ_VALUE                = (byte) 0x6C;
-    static final byte GET_FILES                 = (byte) 0x6F;
     static final byte GET_FILE_SETTINGS         = (byte) 0xF5;
 
     /* Status codes */
@@ -53,30 +46,6 @@ public class DesfireProtocol {
         mTagTech = tagTech;
     }
 
-    public DesfireManufacturingData getManufacturingData() throws DesfireException {
-        byte[] respBuffer = sendRequest(GET_MANUFACTURING_DATA);
-        
-        if (respBuffer.length != 28)
-            throw new DesfireException("Invalid response");
-
-        return new DesfireManufacturingData(respBuffer);
-    }
-
-    public int[] getAppList() throws DesfireException {
-        byte[] appDirBuf = sendRequest(GET_APPLICATION_DIRECTORY);
-
-        int[] appIds = new int[appDirBuf.length / 3];
-
-        for (int app = 0; app < appDirBuf.length; app += 3) {
-            byte[] appId = new byte[3];
-            System.arraycopy(appDirBuf, app, appId, 0, 3);
-
-            appIds[app / 3] = Utils.byteArrayToInt(appId);
-        }
-
-        return appIds;
-    }
-
     public void selectApp (int appId) throws DesfireException {
         byte[] appIdBuff = new byte[3];
         appIdBuff[0] = (byte) ((appId & 0xFF0000) >> 16);
@@ -86,17 +55,8 @@ public class DesfireProtocol {
         sendRequest(SELECT_APPLICATION, appIdBuff);
     }
 
-    public int[] getFileList() throws DesfireException {
-        byte[] buf = sendRequest(GET_FILES);
-        int[] fileIds = new int[buf.length];
-        for (int x = 0; x < buf.length; x++) {
-            fileIds[x] = (int)buf[x];
-        }
-        return fileIds;
-    }
-
     public DesfireFileSettings getFileSettings (int fileNo) throws DesfireException {
-		byte[] data = new byte[0];
+		byte[] data;
 		data = sendRequest(GET_FILE_SETTINGS, new byte[] { (byte) fileNo });
 		return DesfireFileSettings.Create(data);
     }
@@ -109,31 +69,18 @@ public class DesfireProtocol {
         });
     }
 
-    public byte[] readRecord (int fileNum) throws DesfireException {
-        return sendRequest(READ_RECORD, new byte[]{
-                (byte) fileNum,
-                (byte) 0x0, (byte) 0x0, (byte) 0x0,
-                (byte) 0x0, (byte) 0x0, (byte) 0x0
-        });
-    }
-
-	public int readValue(int fileNum) throws DesfireException  {
+    public int readValue(int fileNum) throws DesfireException  {
         byte[] buf = sendRequest(READ_VALUE, new byte[]{
                 (byte) fileNum
         });
         ArrayUtils.reverse(buf);
         return Utils.byteArrayToInt(buf);
 	}
-    
-
-    private byte[] sendRequest (byte command) throws DesfireException {
-        return sendRequest(command, null);
-    }
 
     private byte[] sendRequest (byte command, byte[] parameters) throws DesfireException {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
 
-		byte[] recvBuffer = new byte[0];
+		byte[] recvBuffer;
 		try {
 			recvBuffer = mTagTech.transceive(wrapMessage(command, parameters));
 		} catch (IOException e) {

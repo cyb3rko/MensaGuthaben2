@@ -24,10 +24,6 @@ package com.codebutler.farebot.card.desfire;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import com.codebutler.farebot.Utils;
-import org.w3c.dom.Element;
-
-import java.io.ByteArrayInputStream;
 
 public class DesfireManufacturingData implements Parcelable {
     public final int hwVendorID;
@@ -50,66 +46,6 @@ public class DesfireManufacturingData implements Parcelable {
     public final int batchNo;
     public final int weekProd;
     public final int yearProd;
-
-    public DesfireManufacturingData (byte[] data) {
-        ByteArrayInputStream stream = new ByteArrayInputStream(data);
-        hwVendorID     = stream.read();
-        hwType         = stream.read();
-        hwSubType      = stream.read();
-        hwMajorVersion = stream.read();
-        hwMinorVersion = stream.read();
-        hwStorageSize  = stream.read();
-        hwProtocol     = stream.read();
-
-        swVendorID     = stream.read();
-        swType         = stream.read();
-        swSubType      = stream.read();
-        swMajorVersion = stream.read();
-        swMinorVersion = stream.read();
-        swStorageSize  = stream.read();
-        swProtocol     = stream.read();
-
-        // FIXME: This has fewer digits than what's contained in EXTRA_ID, why?
-        byte[] buf = new byte[7];
-        stream.read(buf, 0, buf.length);
-        uid = Utils.byteArrayToInt(buf);
-
-        // FIXME: This is returning a negative number. Probably is unsigned.
-        buf = new byte[5];
-        stream.read(buf, 0, buf.length);
-        batchNo = Utils.byteArrayToInt(buf);
-
-        // FIXME: These numbers aren't making sense.
-        weekProd = stream.read();
-        yearProd = stream.read();
-    }
-
-    public static DesfireManufacturingData fromXml (Element element) {
-        return new DesfireManufacturingData(element);
-    }
-
-    private DesfireManufacturingData (Element element) {
-        hwVendorID     = Integer.parseInt(element.getElementsByTagName("hw-vendor-id").item(0).getTextContent());
-        hwType         = Integer.parseInt(element.getElementsByTagName("hw-type").item(0).getTextContent());
-        hwSubType      = Integer.parseInt(element.getElementsByTagName("hw-sub-type").item(0).getTextContent());
-        hwMajorVersion = Integer.parseInt(element.getElementsByTagName("hw-major-version").item(0).getTextContent());
-        hwMinorVersion = Integer.parseInt(element.getElementsByTagName("hw-minor-version").item(0).getTextContent());
-        hwStorageSize  = Integer.parseInt(element.getElementsByTagName("hw-storage-size").item(0).getTextContent());
-        hwProtocol     = Integer.parseInt(element.getElementsByTagName("hw-protocol").item(0).getTextContent());
-
-        swVendorID     = Integer.parseInt(element.getElementsByTagName("sw-vendor-id").item(0).getTextContent());
-        swType         = Integer.parseInt(element.getElementsByTagName("sw-type").item(0).getTextContent());
-        swSubType      = Integer.parseInt(element.getElementsByTagName("sw-sub-type").item(0).getTextContent());
-        swMajorVersion = Integer.parseInt(element.getElementsByTagName("sw-major-version").item(0).getTextContent());
-        swMinorVersion = Integer.parseInt(element.getElementsByTagName("sw-minor-version").item(0).getTextContent());
-        swStorageSize  = Integer.parseInt(element.getElementsByTagName("sw-storage-size").item(0).getTextContent());
-        swProtocol     = Integer.parseInt(element.getElementsByTagName("sw-protocol").item(0).getTextContent());
-
-        uid      = Integer.parseInt(element.getElementsByTagName("uid").item(0).getTextContent());
-        batchNo  = Integer.parseInt(element.getElementsByTagName("batch-no").item(0).getTextContent());
-        weekProd = Integer.parseInt(element.getElementsByTagName("week-prod").item(0).getTextContent());
-        yearProd = Integer.parseInt(element.getElementsByTagName("year-prod").item(0).getTextContent());
-    }
 
     private DesfireManufacturingData (Parcel parcel) {
         hwVendorID     = parcel.readInt();

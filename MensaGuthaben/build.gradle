@@ -1,33 +1,18 @@
-buildscript {
-
-    repositories {
-        jcenter()
-    }
-
-    dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.3'
-    }
-}
-apply plugin: 'com.android.application'
-
-repositories {
-    mavenCentral()
-}
-
-dependencies {
-	compile 'com.android.support:support-v4:21.0.+'
-	compile 'com.android.support:appcompat-v7:21.0.+'
-	compile 'org.apache.commons:commons-lang3:3.1'
-
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    namespace 'de.yazo_games.mensaguthaben'
 
+    compileSdk 33
     defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 25
+        applicationId 'de.yazo_games.mensaguthaben'
+        minSdk 23
+        targetSdk 33
+        versionCode 1
+        versionName '1.0.0'
     }
     
     signingConfigs {
@@ -60,9 +45,16 @@ task askForPassword {
     }
 }
 
-tasks.whenTaskAdded { theTask ->
-    if (theTask.name.equals("packageRelease")) {
-        theTask.dependsOn "askForPassword"
-    }
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core-ktx:1.10.0'
+    implementation 'androidx.preference:preference-ktx:1.2.0'
+    implementation 'com.google.android.material:material:1.9.0'
 }
+
+//tasks.whenTaskAdded { theTask ->
+//    if (theTask.name.equals("packageRelease")) {
+//        theTask.dependsOn "askForPassword"
+//    }
+//}
 

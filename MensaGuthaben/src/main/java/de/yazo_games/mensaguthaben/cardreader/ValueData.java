@@ -41,6 +41,4 @@ public class ValueData implements Serializable {
 		this.value = value;
 		this.lastTransaction = lastTransaction;
 	}
-	public ValueData() {
-	}
 }

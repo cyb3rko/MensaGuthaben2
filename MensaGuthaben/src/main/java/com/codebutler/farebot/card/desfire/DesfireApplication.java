@@ -26,8 +26,8 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 public class DesfireApplication implements Parcelable {
-    private int           mId;
-    private DesfireFile[] mFiles;
+    private final int mId;
+    private final DesfireFile[] mFiles;
 
     public DesfireApplication (int id, DesfireFile[] files) {
         mId    = id;
@@ -36,18 +36,6 @@ public class DesfireApplication implements Parcelable {
 
     public int getId () {
         return mId;
-    }
-
-    public DesfireFile[] getFiles () {
-        return mFiles;
-    }
-
-    public DesfireFile getFile (int fileId) {
-        for (DesfireFile file : mFiles) {
-            if (file.getId() == fileId)
-                return file;
-        }
-        return null;
     }
 
     public static final Parcelable.Creator<DesfireApplication> CREATOR = new Parcelable.Creator<DesfireApplication>() {
