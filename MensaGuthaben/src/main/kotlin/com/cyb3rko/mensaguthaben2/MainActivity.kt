@@ -40,7 +40,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.preference.PreferenceManager
-import com.codebutler.farebot.NfcOffFragment
 import com.codebutler.farebot.card.desfire.DesfireException
 import com.cyb3rko.mensaguthaben2.cardreader.Readers
 import com.cyb3rko.mensaguthaben2.cardreader.ValueData
@@ -66,8 +65,7 @@ class MainActivity : AppCompatActivity() {
 
     fun updateNfcState() {
         if (!mAdapter.isEnabled && mResumed) {
-            val f = NfcOffFragment()
-            f.show(supportFragmentManager, NfcOffFragment.TAG)
+            NfcOffFragment().show(supportFragmentManager, NfcOffFragment.TAG)
         }
     }
 
