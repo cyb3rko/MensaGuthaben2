@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'de.yazo_games.mensaguthaben'
+    namespace 'com.cyb3rko.mensaguthaben2'
 
     compileSdk 33
     defaultConfig {
-        applicationId 'de.yazo_games.mensaguthaben'
+        applicationId 'com.cyb3rko.mensaguthaben2'
         minSdk 23
         targetSdk 33
         versionCode 1

@@ -8,7 +8,6 @@ import android.widget.TextView
 import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import com.cyb3rko.mensaguthaben2.cardreader.ValueData
-import de.yazo_games.mensaguthaben.R
 import java.util.Currency
 import java.util.Locale
 

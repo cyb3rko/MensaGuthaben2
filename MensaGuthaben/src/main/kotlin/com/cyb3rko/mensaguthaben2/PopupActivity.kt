@@ -14,7 +14,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.codebutler.farebot.card.desfire.DesfireException
 import com.cyb3rko.mensaguthaben2.cardreader.Readers
-import de.yazo_games.mensaguthaben.R
 
 /**
  * Created by wenzel on 28.11.14.
@@ -25,9 +24,7 @@ class PopupActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.popup_main)
-        val toolbar = findViewById<Toolbar>(R.id.toolbar)
-        toolbar.setTitle(R.string.app_name)
-        setSupportActionBar(toolbar)
+        setSupportActionBar(findViewById(R.id.toolbar))
         Log.i(TAG, "activity started")
         valueFragment = ValueFragment()
         supportFragmentManager.beginTransaction().replace(

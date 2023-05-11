@@ -32,7 +32,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.widget.Toolbar
-import de.yazo_games.mensaguthaben.R
 
 /**
  * A [PreferenceActivity] that presents a set of application settings. On

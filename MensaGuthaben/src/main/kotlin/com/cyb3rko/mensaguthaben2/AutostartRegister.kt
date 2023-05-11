@@ -40,8 +40,8 @@ internal object AutostartRegister {
         Log.i(TAG, "Setting to $enabled")
         pm.setComponentEnabledSetting(
             ComponentName(
-                "de.yazo_games.mensaguthaben",
-                "de.yazo_games.mensaguthaben.ActivityAlias"
+                "com.cyb3rko.mensaguthaben2",
+                "com.cyb3rko.mensaguthaben2.ActivityAlias"
             ),
             enabled,
             PackageManager.DONT_KILL_APP

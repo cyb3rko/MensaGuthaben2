@@ -43,7 +43,6 @@ import androidx.preference.PreferenceManager
 import com.codebutler.farebot.card.desfire.DesfireException
 import com.cyb3rko.mensaguthaben2.cardreader.Readers
 import com.cyb3rko.mensaguthaben2.cardreader.ValueData
-import de.yazo_games.mensaguthaben.R
 
 class MainActivity : AppCompatActivity() {
     private lateinit var mAdapter: NfcAdapter

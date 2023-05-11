@@ -30,8 +30,6 @@ import android.view.Window
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NavUtils
-import de.yazo_games.mensaguthaben.BuildConfig
-import de.yazo_games.mensaguthaben.R
 
 class AboutActivity : AppCompatActivity() {
     private fun makeLinkClickable(id: Int) {
