@@ -1,5 +1,5 @@
 /*
- * ICardReader.java
+ * ValueData.java
  *
  * Copyright (C) 2014 Jakob Wenzel
  *
@@ -19,21 +19,20 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.cyb3rko.mensaguthaben2.cardreader
 
-package de.yazo_games.mensaguthaben.cardreader;
+import java.io.Serializable
 
-import com.codebutler.farebot.card.desfire.DesfireException;
-import com.codebutler.farebot.card.desfire.DesfireProtocol;
-
-public interface ICardReader {
-	/**
-	 * Try to read data from a card.
-	 * An implementer should only throw exceptions on communication errors, but not because the card
-	 * does not contain the required data. In that case, null should be returned.
-	 *
-	 * @param card The card to read
-	 * @return Card's data, null if unsupported.
-	 * @throws DesfireException Communication error
-	 */
-	ValueData readCard(DesfireProtocol card) throws DesfireException;
-}
+/**
+ * Stores Data read from a card
+ */
+class ValueData(
+    /**
+     * Current value on card, in tenths of Euro cents.
+     */
+    var value: Int,
+    /**
+     * Last transaction, in tenths of Euro cents. null if not supported by card.
+     */
+    var lastTransaction: Int?
+) : Serializable

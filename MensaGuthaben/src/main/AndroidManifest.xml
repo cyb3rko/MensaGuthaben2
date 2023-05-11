@@ -14,7 +14,7 @@
         android:persistent="false"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="de.yazo_games.mensaguthaben.MainActivity"
+            android:name="com.cyb3rko.mensaguthaben2.MainActivity"
 			android:launchMode="singleTop"
             android:exported="true">
             <intent-filter>
@@ -25,30 +25,30 @@
 
         </activity>
 		<activity
-			android:name="de.yazo_games.mensaguthaben.PopupActivity"
+			android:name="com.cyb3rko.mensaguthaben2.PopupActivity"
 			android:theme="@style/AppTheme.Dialog">
 		</activity>
 
         <activity
-            android:name="de.yazo_games.mensaguthaben.AboutActivity"
+            android:name="com.cyb3rko.mensaguthaben2.AboutActivity"
             android:label="@string/title_activity_about"
-            android:parentActivityName="de.yazo_games.mensaguthaben.MainActivity" >
+            android:parentActivityName="com.cyb3rko.mensaguthaben2.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.yazo_games.mensaguthaben.MainActivity" />
+                android:value="com.cyb3rko.mensaguthaben2.MainActivity" />
         </activity>
         <activity
-            android:name="de.yazo_games.mensaguthaben.SettingsActivity"
+            android:name="com.cyb3rko.mensaguthaben2.SettingsActivity"
             android:label="@string/title_activity_settings"
-            android:parentActivityName="de.yazo_games.mensaguthaben.MainActivity" >
+            android:parentActivityName="com.cyb3rko.mensaguthaben2.MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="de.yazo_games.mensaguthaben.MainActivity" />
+                android:value="com.cyb3rko.mensaguthaben2.MainActivity" />
         </activity>
 
         <activity-alias
             android:name=".ActivityAlias"
-            android:targetActivity=".PopupActivity"
+            android:targetActivity="com.cyb3rko.mensaguthaben2.PopupActivity"
             android:enabled="true"
             android:exported="true">
 

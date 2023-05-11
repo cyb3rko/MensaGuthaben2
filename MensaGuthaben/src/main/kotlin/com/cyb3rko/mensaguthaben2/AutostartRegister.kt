@@ -19,27 +19,32 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+package com.cyb3rko.mensaguthaben2
 
-package de.yazo_games.mensaguthaben;
-
-import android.content.ComponentName;
-import android.content.pm.PackageManager;
-import android.util.Log;
+import android.content.ComponentName
+import android.content.pm.PackageManager
+import android.util.Log
 
 /**
  * register or unregister the app to be autostarted on nfc discovery
  */
-public class AutostartRegister {
-	private static final String TAG = AutostartRegister.class.getName();
-    static void register(PackageManager pm, boolean autostart) {
-        Log.i(TAG, "Autostart is " + autostart);
-        int enabled = autostart ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED :
-                PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-
-        Log.i(TAG,"Setting to "+enabled);
+internal object AutostartRegister {
+    private val TAG = AutostartRegister::class.java.name
+    fun register(pm: PackageManager, autostart: Boolean) {
+        Log.i(TAG, "Autostart is $autostart")
+        val enabled = if (autostart) {
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+        } else {
+            PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+        }
+        Log.i(TAG, "Setting to $enabled")
         pm.setComponentEnabledSetting(
-                new ComponentName("de.yazo_games.mensaguthaben", "de.yazo_games.mensaguthaben.ActivityAlias"),
-                enabled,
-                PackageManager.DONT_KILL_APP);
+            ComponentName(
+                "de.yazo_games.mensaguthaben",
+                "de.yazo_games.mensaguthaben.ActivityAlias"
+            ),
+            enabled,
+            PackageManager.DONT_KILL_APP
+        )
     }
 }

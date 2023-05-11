@@ -12,11 +12,11 @@
     <string name="nfc_off">NFC is off</string>
     <string name="turn_nfc_on">Please turn on NFC</string>
     <string name="goto_settings">go to settings</string>
-    <string name="last_withdrawal">Last withdrawal:</string>
+    <string name="last_withdrawal">Last withdrawal: %1$s</string>
     <string name="card_not_supported">Card not supported</string>
     <string name="communication_fail">Communication with Card failed</string>
     <string name="website">If you test the app on cards from a different university, I\'d love to hear about the results. Write me <a href="mailto:jakobwenzel92@gmail.com">a Mail</a> or <a href="https://github.com/jakobwenzel/MensaGuthaben/issues">via Github</a>!</string>
-    <string name="version">Version</string>
+    <string name="version">Version %1$s (%2$d)</string>
     <string name="fullscreen">Fullscreen</string>
 
 </resources>

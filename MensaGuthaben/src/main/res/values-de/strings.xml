@@ -12,11 +12,11 @@
     <string name="nfc_off">NFC ist ausgeschaltet</string>
     <string name="turn_nfc_on">Bitte NFC einschalten</string>
     <string name="goto_settings">Zu Einstellungen wechseln</string>
-    <string name="last_withdrawal">Letzte Abbuchung:</string>
+    <string name="last_withdrawal">Letzte Abbuchung: %1$s</string>
     <string name="card_not_supported">Karte nicht unterstützt</string>
     <string name="communication_fail">Kommunikation mit Karte fehlgeschlagen</string>
 
     <string name="website">Wenn du die App an Karten von einer anderen Uni ausprobierst würde ich mich über Rückmeldungen freuen. Schreib mir <a href="mailto:jakobwenzel92@gmail.com">per Mail</a> oder <a href="https://github.com/jakobwenzel/MensaGuthaben/issues">auf Github</a>!</string>
-    <string name="version">Version</string>
+    <string name="version">Version %1$s (%2$d)</string>
     <string name="fullscreen">Vollbild</string>
 </resources>
