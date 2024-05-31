@@ -45,6 +45,7 @@ import androidx.appcompat.widget.Toolbar
  * API Guide](http://developer.android.com/guide/topics/ui/settings.html) for more information on developing a Settings UI.
  */
 class SettingsActivity : PreferenceActivity(), OnSharedPreferenceChangeListener {
+    @Deprecated("Temporary")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -79,11 +80,13 @@ class SettingsActivity : PreferenceActivity(), OnSharedPreferenceChangeListener 
         addPreferencesFromResource(R.xml.pref_general)
     }
 
+    @Deprecated("Temporary")
     /** {@inheritDoc}  */
     override fun onIsMultiPane(): Boolean {
         return isXLargeTablet(this) && isNotSimplePreferences(this)
     }
 
+    @Deprecated("Temporary")
     /** {@inheritDoc}  */
     override fun onBuildHeaders(target: List<Header>) {
         if (isNotSimplePreferences(this)) {
@@ -94,8 +97,8 @@ class SettingsActivity : PreferenceActivity(), OnSharedPreferenceChangeListener 
     /**
      * Settings changed, so register or unregister nfc listener
      */
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key: String) {
-        if (key == "autostart") {
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        if (sharedPreferences != null && key == "autostart") {
             val value = sharedPreferences.getBoolean(key, true)
             AutostartRegister.register(packageManager, value)
         }
@@ -118,6 +121,7 @@ class SettingsActivity : PreferenceActivity(), OnSharedPreferenceChangeListener 
      * activity is showing a two-pane settings UI.
      */
     class GeneralPreferenceFragment : PreferenceFragment() {
+        @Deprecated("Temporary")
         override fun onCreate(savedInstanceState: Bundle?) {
             super.onCreate(savedInstanceState)
             addPreferencesFromResource(R.xml.pref_general)
