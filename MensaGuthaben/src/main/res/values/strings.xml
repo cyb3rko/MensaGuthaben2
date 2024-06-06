@@ -1,23 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!-- General -->
     <string name="app_name">Mensa-G2</string>
     <string name="full_app_name">Mensa-Guthaben</string>
-    <string name="action_about">About Mensa-Guthaben</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_about">About Mensa-Guthaben 2</string>
     <string name="place_on_card">Place on Mensa card</string>
-    <string name="title_activity_about">About</string>
-    <string name="copyright" translatable="false"><a href="http://jakobwenzel.github.io/MensaGuthaben">© 2017 Jakob Wenzel</a></string>
-    <string name="farebot">This app contains code from <a href="https://github.com/codebutler/farebot">farebot</a> licensed under GPL</string>
-    <string name="github">Find the Source Code on <a href="https://github.com/antidau/MensaGuthaben">Github</a>!</string>
     <string name="nfc_off">NFC is off</string>
     <string name="turn_nfc_on">Please turn on NFC</string>
-    <string name="goto_settings">go to settings</string>
+    <string name="goto_settings">Go to settings</string>
     <string name="last_withdrawal">Last withdrawal: %1$s</string>
     <string name="card_not_supported">Card not supported</string>
-    <string name="communication_fail">Communication with Card failed</string>
-    <string name="website">If you test the app on cards from a different university, I\'d love to hear about the results. Write me <a href="mailto:jakobwenzel92@gmail.com">a Mail</a> or <a href="https://github.com/jakobwenzel/MensaGuthaben/issues">via Github</a>!</string>
-    <string name="version">Version %1$s (%2$d)</string>
+    <string name="communication_fail">Communication with card failed</string>
     <string name="fullscreen">Fullscreen</string>
 
+    <!-- About -->
+    <string name="title_activity_about">About</string>
+    <string name="version" translatable="false">Version %1$s (%2$d)</string>
+    <string name="copyright" translatable="false"><a href="http://jakobwenzel.github.io/MensaGuthaben">© 2017 Jakob Wenzel</a></string>
+    <string name="copyright2" translatable="false"><a href="https://github.com/cyb3rko/MensaGuthaben2">© 2024 Niko Diamadis</a></string>
+    <string name="website">If you test the app on cards from a different university, I\'d love to hear about the results. Please open an issue for that <a href="https://github.com/cyb3rko/MensaGuthaben2/issues">via GitHub</a>!</string>
+    <string name="farebot">This app contains code from <a href="https://github.com/codebutler/farebot">farebot</a> licensed under GPL</string>
+    <string name="github">Find the Source Code on <a href="https://github.com/cyb3rko/MensaGuthaben2">GitHub</a>!</string>
+
+    <!-- Preferences -->
+    <string name="pref_title_autostart">Autostart on tag discovery</string>
 </resources>

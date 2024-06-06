@@ -149,7 +149,7 @@ internal class MainActivity : ComponentActivity() {
                             )
                             Text(
                                 modifier = Modifier.padding(top = 15.dp),
-                                text = "Autostart on tag discovery",
+                                text = stringResource(id = R.string.pref_title_autostart),
                                 style = TextStyle(fontSize = 16.sp)
                             )
                         }

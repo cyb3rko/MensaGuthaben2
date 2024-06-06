@@ -1,23 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <!-- General -->
     <string name="app_name">Mensa-G2</string>
     <string name="full_app_name">Mensa-Guthaben</string>
-    <string name="action_about">Über Mensa-Guthaben</string>
-    <string name="action_settings">Einstellungen</string>
+    <string name="action_about">Über Mensa-Guthaben 2</string>
     <string name="place_on_card">Auf Mensakarte legen</string>
-    <string name="title_activity_about">Über Mensa-Guthaben</string>
-    <string name="farebot">Diese App enthält Code von <a href="https://github.com/codebutler/farebot">farebot</a>, lizenziert unter GPL.</string>
-    <string name="github">Der Quelltext ist auf <a href="https://github.com/antidau/MensaGuthaben">Github</a> verfügbar!</string>
-
     <string name="nfc_off">NFC ist ausgeschaltet</string>
     <string name="turn_nfc_on">Bitte NFC einschalten</string>
     <string name="goto_settings">Zu Einstellungen wechseln</string>
     <string name="last_withdrawal">Letzte Abbuchung: %1$s</string>
     <string name="card_not_supported">Karte nicht unterstützt</string>
     <string name="communication_fail">Kommunikation mit Karte fehlgeschlagen</string>
-
-    <string name="website">Wenn du die App an Karten von einer anderen Uni ausprobierst würde ich mich über Rückmeldungen freuen. Schreib mir <a href="mailto:jakobwenzel92@gmail.com">per Mail</a> oder <a href="https://github.com/jakobwenzel/MensaGuthaben/issues">auf Github</a>!</string>
-    <string name="version">Version %1$s (%2$d)</string>
     <string name="fullscreen">Vollbild</string>
+
+    <!-- About -->
+    <string name="title_activity_about">Über</string>
+    <string name="website">Wenn du die App an Karten von einer anderen Uni ausprobierst, würde ich mich über Rückmeldungen freuen. Öffne dafür bitte ein Issue <a href="https://github.com/cyb3rko/MensaGuthaben2/issues">auf GitHub</a>!</string>
+    <string name="farebot">Diese App enthält Code von <a href="https://github.com/codebutler/farebot">farebot</a>, lizenziert unter GPL.</string>
+    <string name="github">Der Quelltext ist auf <a href="https://github.com/cyb3rko/MensaGuthaben2">GitHub</a> verfügbar!</string>
+
+    <!-- Preferences -->
+    <string name="pref_title_autostart">Automatisch starten bei Tag-Erkennung</string>
 </resources>
