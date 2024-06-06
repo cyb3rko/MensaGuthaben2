@@ -29,7 +29,16 @@ android {
         jvmTarget = "17"
     }
     buildFeatures {
+        compose = true
         buildConfig = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.14"
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
     }
 }
 
@@ -49,8 +58,14 @@ if (project.hasProperty("sign")) {
 }
 
 dependencies {
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    implementation("androidx.core:core-ktx:1.13.1")
-    implementation("androidx.preference:preference-ktx:1.2.1")
-    implementation("com.google.android.material:material:1.12.0")
+    implementation(libs.androidx.activity.compose)
+    implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.androidx.core.splashscreen)
+    implementation(libs.androidx.lifecycle.viewmodel.compose)
+    implementation(libs.androidx.runtime.livedata)
+    implementation(libs.androidx.ui)
+    implementation(libs.androidx.ui.graphics)
+    implementation(libs.androidx.ui.tooling)
+    implementation(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.material3)
 }
