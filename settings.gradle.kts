@@ -21,4 +21,4 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "MensaGuthaben2"
-include(":MensaGuthaben")
+include(":app")
