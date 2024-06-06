@@ -14,10 +14,10 @@
     <string name="fullscreen">Vollbild</string>
 
     <!-- About -->
-    <string name="title_activity_about">Über</string>
-    <string name="website">Wenn du die App an Karten von einer anderen Uni ausprobierst, würde ich mich über Rückmeldungen freuen. Öffne dafür bitte ein Issue <a href="https://github.com/cyb3rko/MensaGuthaben2/issues">auf GitHub</a>!</string>
-    <string name="farebot">Diese App enthält Code von <a href="https://github.com/codebutler/farebot">farebot</a>, lizenziert unter GPL.</string>
-    <string name="github">Der Quelltext ist auf <a href="https://github.com/cyb3rko/MensaGuthaben2">GitHub</a> verfügbar!</string>
+    <string name="title_about">Über</string>
+    <string name="website">Wenn du die App an Karten von einer anderen Uni ausprobierst, würde ich mich über Rückmeldungen freuen. Öffne dafür bitte ein Issue auf GitHub!</string>
+    <string name="farebot">Diese App enthält Code von farebot, lizenziert unter GPL.</string>
+    <string name="github">Der Quelltext ist auf GitHub verfügbar!</string>
 
     <!-- Preferences -->
     <string name="pref_title_autostart">Automatisch starten bei Tag-Erkennung</string>

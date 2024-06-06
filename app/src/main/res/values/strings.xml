@@ -14,13 +14,16 @@
     <string name="fullscreen">Fullscreen</string>
 
     <!-- About -->
-    <string name="title_activity_about">About</string>
+    <string name="github_url" translatable="false">https://github.com/cyb3rko/mensa-guthaben-2</string>
+    <string name="title_about">About</string>
     <string name="version" translatable="false">Version %1$s (%2$d)</string>
-    <string name="copyright" translatable="false"><a href="http://jakobwenzel.github.io/MensaGuthaben">© 2017 Jakob Wenzel</a></string>
-    <string name="copyright2" translatable="false"><a href="https://github.com/cyb3rko/MensaGuthaben2">© 2024 Niko Diamadis</a></string>
-    <string name="website">If you test the app on cards from a different university, I\'d love to hear about the results. Please open an issue for that <a href="https://github.com/cyb3rko/MensaGuthaben2/issues">via GitHub</a>!</string>
-    <string name="farebot">This app contains code from <a href="https://github.com/codebutler/farebot">farebot</a> licensed under GPL</string>
-    <string name="github">Find the Source Code on <a href="https://github.com/cyb3rko/MensaGuthaben2">GitHub</a>!</string>
+    <string name="copyright" translatable="false">© 2017 Jakob Wenzel</string>
+    <string name="copyright_url" translatable="false">https://jakobwenzel.github.io/MensaGuthaben</string>
+    <string name="copyright2" translatable="false">© 2024 Niko Diamadis</string>
+    <string name="website">If you test the app on cards from a different university, I\'d love to hear about the results. Please open an issue for that via GitHub!</string>
+    <string name="farebot">This app contains code from farebot licensed under GPL</string>
+    <string name="farebot_url" translatable="false">https://github.com/codebutler/farebot</string>
+    <string name="github">Find the Source Code on GitHub!</string>
 
     <!-- Preferences -->
     <string name="pref_title_autostart">Autostart on tag discovery</string>

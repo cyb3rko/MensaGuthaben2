@@ -19,12 +19,18 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -33,6 +39,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
@@ -42,14 +49,21 @@ import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.DEFAULT_ARGS_KEY
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewmodel.MutableCreationExtras
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.codebutler.farebot.card.desfire.DesfireException
 import de.cyb3rko.mensaguthaben2.cardreader.Readers
 import de.cyb3rko.mensaguthaben2.cardreader.ValueData
 import de.cyb3rko.mensaguthaben2.modals.NfcOffDialog
+import de.cyb3rko.mensaguthaben2.navigation.Screen
 import de.cyb3rko.mensaguthaben2.ui.theme.MensaGuthabenTheme
 
 internal class MainActivity : ComponentActivity() {
-    private val viewModel: MainViewModel by viewModels(
+    private val mainViewModel: MainViewModel by viewModels(
         factoryProducer = { MainViewModel.Factory },
         extrasProducer = {
             MutableCreationExtras(defaultViewModelCreationExtras).apply {
@@ -58,10 +72,11 @@ internal class MainActivity : ComponentActivity() {
         }
     )
     private lateinit var mAdapter: NfcAdapter
+    private lateinit var navController: NavController
     private val mReceiver: BroadcastReceiver = object : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent) {
             if (intent.action == NfcAdapter.ACTION_ADAPTER_STATE_CHANGED) {
-                viewModel.showNfcDialog(!mAdapter.isEnabled)
+                mainViewModel.showNfcDialog(!mAdapter.isEnabled)
             }
         }
     }
@@ -74,8 +89,8 @@ internal class MainActivity : ComponentActivity() {
         mAdapter = NfcAdapter.getDefaultAdapter(this)
         @Suppress("DEPRECATION")
         val valueData = intent.getSerializableExtra("valueData") as ValueData?
-        if (valueData != null) viewModel.updateValueData(valueData)
-        AutostartRegister.register(packageManager, viewModel.uiState.value.autoStart)
+        if (valueData != null) mainViewModel.updateValueData(valueData)
+        AutostartRegister.register(packageManager, mainViewModel.uiState.value.autoStart)
         val mIntentFilter = IntentFilter("android.nfc.action.ADAPTER_STATE_CHANGED")
         // Create a generic PendingIntent that will be deliver to this activity.
         // The NFC stack will fill in the intent with the details of the discovered tag before
@@ -104,6 +119,11 @@ internal class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
 
         setContent {
+            navController = rememberNavController()
+            val backStackEntry by navController.currentBackStackEntryAsState()
+            val currentScreen = Screen.valueOf(
+                backStackEntry?.destination?.route ?: Screen.Main.name
+            )
             LifecycleListener {
                 when (it) {
                     Lifecycle.Event.ON_RESUME -> {
@@ -123,44 +143,24 @@ internal class MainActivity : ComponentActivity() {
                 }
             }
             MensaGuthabenTheme {
-                val uiState by viewModel.uiState.collectAsState()
                 Scaffold(
                     modifier = Modifier.fillMaxSize(),
-                    topBar = { TopBar() }
+                    topBar = { TopBar(
+                        currentScreen = currentScreen,
+                        canNavigateBack = navController.previousBackStackEntry != null
+                    ) }
                 ) { innerPadding ->
-                    Column(
-                        modifier = Modifier
-                            .padding(innerPadding)
-                            .fillMaxSize(),
-                        horizontalAlignment = Alignment.CenterHorizontally
+                    NavHost(
+                        navController = navController as NavHostController,
+                        startDestination = Screen.Main.name
                     ) {
-                        Row {
-                            Checkbox(
-                                checked = uiState.autoStart,
-                                onCheckedChange = {
-                                    viewModel.toggleAutoStart()
-                                    @Suppress("DEPRECATION")
-                                    android.preference.PreferenceManager
-                                        .getDefaultSharedPreferences(application)
-                                        .edit()
-                                        .putBoolean("autostart", it)
-                                        .apply()
-                                }
-                            )
-                            Text(
-                                modifier = Modifier.padding(top = 15.dp),
-                                text = stringResource(id = R.string.pref_title_autostart),
-                                style = TextStyle(fontSize = 16.sp)
-                            )
+                        composable(route = Screen.Main.name) {
+                            Main(innerPadding = innerPadding)
                         }
-                        HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp))
-                        ValueContent(valueData = uiState.valueData)
+                        composable(route = Screen.About.name) {
+                            About(innerPadding = innerPadding)
+                        }
                     }
-                }
-                if (uiState.showNfcDialog) {
-                    NfcOffDialog(onClose = {
-                        viewModel.showNfcDialog(false)
-                    })
                 }
             }
         }
@@ -177,7 +177,7 @@ internal class MainActivity : ComponentActivity() {
                 val valueData = Readers.instance?.readTag(tag)
                 if (valueData != null) {
                     Log.i(TAG, "Setting read data")
-                    viewModel.updateValueData(valueData)
+                    mainViewModel.updateValueData(valueData)
                 }
             } catch (e: DesfireException) {
                 Toast.makeText(this, R.string.communication_fail, Toast.LENGTH_SHORT).show()
@@ -185,14 +185,80 @@ internal class MainActivity : ComponentActivity() {
         }
     }
 
+    @Composable
+    private fun TopBar(
+        currentScreen: Screen,
+        canNavigateBack: Boolean,
+    ) {
+        TopAppBar(
+            title = { Text(stringResource(id = currentScreen.title)) },
+            navigationIcon = {
+                if (canNavigateBack) {
+                    IconButton(onClick = { navController.navigateUp() }) {
+                        Icon(
+                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                            contentDescription = "Navigate back"
+                        )
+                    }
+                }
+            },
+            actions = {
+                if (currentScreen != Screen.About) {
+                    IconButton(
+                        onClick = {
+                            navController.navigate(Screen.About.name)
+                        }
+                    ) {
+                        Icon(
+                            imageVector = Icons.Outlined.Info,
+                            contentDescription = "About button",
+                        )
+                    }
+                }
+            },
+        )
+    }
+
+    @Composable
+    private fun Main(innerPadding: PaddingValues) {
+        val uiState by mainViewModel.uiState.collectAsState()
+        val context = LocalContext.current
+        Column(
+            modifier = Modifier
+                .padding(innerPadding)
+                .fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row {
+                Checkbox(
+                    checked = uiState.autoStart,
+                    onCheckedChange = {
+                        mainViewModel.toggleAutoStart()
+                        @Suppress("DEPRECATION")
+                        android.preference.PreferenceManager
+                            .getDefaultSharedPreferences(context)
+                            .edit()
+                            .putBoolean("autostart", it)
+                            .apply()
+                    }
+                )
+                Text(
+                    modifier = Modifier.padding(top = 15.dp),
+                    text = stringResource(id = R.string.pref_title_autostart),
+                    style = TextStyle(fontSize = 16.sp)
+                )
+            }
+            HorizontalDivider(modifier = Modifier.padding(vertical = 10.dp))
+            ValueContent(valueData = uiState.valueData)
+        }
+        if (uiState.showNfcDialog) {
+            NfcOffDialog(onClose = {
+                mainViewModel.showNfcDialog(false)
+            })
+        }
+    }
+
     companion object {
         private val TAG: String = MainActivity::class.java.name
     }
-}
-
-@Composable
-private fun TopBar() {
-    TopAppBar(
-        title = { Text(stringResource(id = R.string.full_app_name)) }
-    )
 }
