@@ -19,14 +19,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.cyb3rko.mensaguthaben2.cardreader
+package de.cyb3rko.mensaguthaben2.cardreader
 
 import android.nfc.Tag
 import android.nfc.tech.IsoDep
 import android.util.Log
 import com.codebutler.farebot.card.desfire.DesfireException
 import com.codebutler.farebot.card.desfire.DesfireProtocol
-import com.cyb3rko.mensaguthaben2.ValueHolder.data
+import de.cyb3rko.mensaguthaben2.ValueHolder.data
 import java.io.IOException
 
 class Readers : ICardReader {

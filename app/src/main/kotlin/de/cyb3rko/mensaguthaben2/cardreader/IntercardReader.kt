@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.cyb3rko.mensaguthaben2.cardreader
+package de.cyb3rko.mensaguthaben2.cardreader
 
 import android.util.Log
 import com.codebutler.farebot.Utils

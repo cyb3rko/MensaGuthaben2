@@ -1,4 +1,4 @@
-package com.cyb3rko.mensaguthaben2
+package de.cyb3rko.mensaguthaben2
 
 import android.app.Application
 import android.os.Bundle
@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProvider.AndroidViewModelFactory.Companion.APPLICATION_KEY
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
-import com.cyb3rko.mensaguthaben2.cardreader.ValueData
+import de.cyb3rko.mensaguthaben2.cardreader.ValueData
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow

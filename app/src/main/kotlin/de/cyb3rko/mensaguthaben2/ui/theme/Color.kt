@@ -1,4 +1,4 @@
-package com.cyb3rko.mensaguthaben2.ui.theme
+package de.cyb3rko.mensaguthaben2.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

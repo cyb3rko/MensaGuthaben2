@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.cyb3rko.mensaguthaben2.modals
+package de.cyb3rko.mensaguthaben2.modals
 
 import android.content.Intent
 import android.provider.Settings
@@ -11,7 +11,7 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
-import com.cyb3rko.mensaguthaben2.R
+import de.cyb3rko.mensaguthaben2.R
 
 @Composable
 internal fun NfcOffDialog(onClose: () -> Unit) {

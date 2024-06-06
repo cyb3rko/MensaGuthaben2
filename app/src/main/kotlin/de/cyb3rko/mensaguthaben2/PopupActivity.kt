@@ -1,6 +1,6 @@
 @file: OptIn(ExperimentalMaterial3Api::class)
 
-package com.cyb3rko.mensaguthaben2
+package de.cyb3rko.mensaguthaben2
 
 import android.annotation.SuppressLint
 import android.app.Activity
@@ -28,9 +28,9 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.codebutler.farebot.card.desfire.DesfireException
-import com.cyb3rko.mensaguthaben2.cardreader.Readers
-import com.cyb3rko.mensaguthaben2.cardreader.ValueData
-import com.cyb3rko.mensaguthaben2.ui.theme.MensaGuthabenTheme
+import de.cyb3rko.mensaguthaben2.cardreader.Readers
+import de.cyb3rko.mensaguthaben2.cardreader.ValueData
+import de.cyb3rko.mensaguthaben2.ui.theme.MensaGuthabenTheme
 
 internal class PopupActivity : ComponentActivity() {
     private var valueData: ValueData? = null

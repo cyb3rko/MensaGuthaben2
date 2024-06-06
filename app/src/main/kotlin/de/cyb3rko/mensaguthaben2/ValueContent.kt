@@ -1,4 +1,4 @@
-package com.cyb3rko.mensaguthaben2
+package de.cyb3rko.mensaguthaben2
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -15,7 +15,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.content.ContextCompat
-import com.cyb3rko.mensaguthaben2.cardreader.ValueData
+import de.cyb3rko.mensaguthaben2.cardreader.ValueData
 import java.util.Currency
 import java.util.Locale
 

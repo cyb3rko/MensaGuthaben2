@@ -1,4 +1,4 @@
-package com.cyb3rko.mensaguthaben2
+package de.cyb3rko.mensaguthaben2
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect

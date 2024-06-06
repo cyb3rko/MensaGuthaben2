@@ -1,6 +1,6 @@
-package com.cyb3rko.mensaguthaben2
+package de.cyb3rko.mensaguthaben2
 
-import com.cyb3rko.mensaguthaben2.cardreader.ValueData
+import de.cyb3rko.mensaguthaben2.cardreader.ValueData
 
 /**
  * Created by wenzel on 10.02.15.

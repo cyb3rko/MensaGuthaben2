@@ -5,10 +5,10 @@ plugins {
 }
 
 android {
-    namespace = "com.cyb3rko.mensaguthaben2"
+    namespace = "de.cyb3rko.mensaguthaben2"
     compileSdk = 34
     defaultConfig {
-        applicationId = "com.cyb3rko.mensaguthaben2"
+        applicationId = "de.cyb3rko.mensaguthaben2"
         minSdk = 23
         targetSdk = 34
         versionCode = 1

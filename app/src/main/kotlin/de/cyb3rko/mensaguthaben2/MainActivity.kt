@@ -1,6 +1,6 @@
 @file: OptIn(ExperimentalMaterial3Api::class)
 
-package com.cyb3rko.mensaguthaben2
+package de.cyb3rko.mensaguthaben2
 
 import android.app.PendingIntent
 import android.content.BroadcastReceiver
@@ -43,10 +43,10 @@ import androidx.lifecycle.DEFAULT_ARGS_KEY
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.viewmodel.MutableCreationExtras
 import com.codebutler.farebot.card.desfire.DesfireException
-import com.cyb3rko.mensaguthaben2.cardreader.Readers
-import com.cyb3rko.mensaguthaben2.cardreader.ValueData
-import com.cyb3rko.mensaguthaben2.modals.NfcOffDialog
-import com.cyb3rko.mensaguthaben2.ui.theme.MensaGuthabenTheme
+import de.cyb3rko.mensaguthaben2.cardreader.Readers
+import de.cyb3rko.mensaguthaben2.cardreader.ValueData
+import de.cyb3rko.mensaguthaben2.modals.NfcOffDialog
+import de.cyb3rko.mensaguthaben2.ui.theme.MensaGuthabenTheme
 
 internal class MainActivity : ComponentActivity() {
     private val viewModel: MainViewModel by viewModels(

@@ -19,7 +19,7 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-package com.cyb3rko.mensaguthaben2
+package de.cyb3rko.mensaguthaben2
 
 import android.content.ComponentName
 import android.content.pm.PackageManager
@@ -40,8 +40,8 @@ internal object AutostartRegister {
         Log.i(TAG, "Setting to $enabled")
         pm.setComponentEnabledSetting(
             ComponentName(
-                "com.cyb3rko.mensaguthaben2",
-                "com.cyb3rko.mensaguthaben2.ActivityAlias"
+                "de.cyb3rko.mensaguthaben2",
+                "de.cyb3rko.mensaguthaben2.ActivityAlias"
             ),
             enabled,
             PackageManager.DONT_KILL_APP
